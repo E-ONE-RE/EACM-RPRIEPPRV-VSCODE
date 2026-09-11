@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: eacm.rpriepprv
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: https://8e0d8821-e882-4534-a88c-b915b1305788.abap.eu10.hana.ondemand.com
+          authenticationType: reentranceTicket # SAML support for vscode
+        app:
+          name: /EACM/RPRIEPPRV
+          description: Report Riepilogo Provvigioni
+          package: /EACM/RPRIEPPRV
+          transport: DVLK900006
+        exclude:
+          - /test/
+          - /localService/

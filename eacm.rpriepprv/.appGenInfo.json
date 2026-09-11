@@ -1,0 +1,29 @@
+{
+  "generationParameters": {
+    "generationDate": "Tue Jul 28 2026 15:09:26 GMT+0200 (Central European Summer Time)",
+    "generatorPlatform": "Visual Studio Code",
+    "serviceType": "SAP System (ABAP Cloud)",
+    "metadataFilename": "",
+    "serviceUrl": "https://8e0d8821-e882-4534-a88c-b915b1305788.abap.eu10.hana.ondemand.com/sap/opu/odata4/eacm/ui_rpriepprv_b/srvd/eacm/ui_rpriepprv/0001/",
+    "appName": "eacm.rpriepprv",
+    "appTitle": "Report Riepilogo Provvigioni",
+    "appDescription": "Report Riepilogo Provvigioni",
+    "appNamespace": "",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.145.3",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.29.0",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "CommissionSummary"
+      }
+    ],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```",
+    "valueHelpDownloaded": true
+  }
+}

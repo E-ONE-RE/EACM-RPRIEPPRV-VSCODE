@@ -1,0 +1,188 @@
+{
+  "_version": "1.83.1",
+  "sap.app": {
+    "id": "eacm.rpriepprv",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.29.0",
+      "toolsId": "b4e06fc4-9c28-4fed-b57a-c9aa2a61fb98"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/eacm/ui_rpriepprv_b/srvd/eacm/ui_rpriepprv/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ZEACM_RPRIEPPRV-manage": {
+          "semanticObject": "ZEACM_RPRIEPPRV",
+          "action": "manage",
+          "title": "{{ZEACM_RPRIEPPRV-manage.flpTitle}}",
+          "subTitle": "{{ZEACM_RPRIEPPRV-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.145.3",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "eacm.rpriepprv.ext.controller.ListReportExt"
+          }
+        }
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "eacm.rpriepprv.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CommissionSummaryList",
+          "target": "CommissionSummaryList"
+        },
+        {
+          "pattern": "CommissionSummary({key}):?query:",
+          "name": "CommissionSummaryObjectPage",
+          "target": "CommissionSummaryObjectPage"
+        }
+      ],
+      "targets": {
+        "CommissionSummaryList": {
+          "type": "Component",
+          "id": "CommissionSummaryList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/CommissionSummary",
+              "variantManagement": "Page",
+              "navigation": {
+                "CommissionSummary": {
+                  "detail": {
+                    "route": "CommissionSummaryObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "actions": {
+                    "DataFieldForAction::com.sap.gateway.srvd.eacm.ui_rpriepprv.v0001.PrintPdf": {
+                      "visible": false
+                    },
+                    "DirectPdfDownload": {
+                      "press": ".extension.eacm.rpriepprv.ext.controller.ListReportExt.downloadPdf",
+                      "text": "{i18n>printPdfButtonText}"
+                    }
+                  },
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CommissionSummaryObjectPage": {
+          "type": "Component",
+          "id": "CommissionSummaryObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/CommissionSummary"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
