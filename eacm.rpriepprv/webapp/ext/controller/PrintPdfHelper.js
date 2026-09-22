@@ -5,8 +5,11 @@ sap.ui.define([
     "sap/m/VBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/model/json/JSONModel"
-], function (Button, CheckBox, Dialog, VBox, Filter, FilterOperator, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/library",
+    "eacm/rprpriepprv/ext/controller/MessageLogHelper"
+// eslint-disable-next-line max-params
+], function (Button, CheckBox, Dialog, VBox, Filter, FilterOperator, JSONModel, coreLibrary, MessageLogHelper) {
     "use strict";
 
     // Helper unico della stampa del List Report.
@@ -32,7 +35,13 @@ sap.ui.define([
         });
 
         if (!oResponse.ok) {
-            var oError = new Error("Download PDF fallito con stato HTTP " + oResponse.status + ".");
+            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+            var oError;
+            if (sLanguage === "it") {
+                oError = new Error("Download PDF fallito con stato HTTP" + oResponse.status + " " + oResponse.statusText); // i18n>errorPdfDownloadHTTP
+            } else {
+                oError = new Error("PDF download failed with HTTP status" + oResponse.status + " " + oResponse.statusText); // i18n>errorPdfDownloadHTTP
+            }
             oError.status = oResponse.status;
             oError.responseText = await oResponse.text();
             throw oError;
@@ -66,10 +75,13 @@ sap.ui.define([
 
         oLink.href = sObjectUrl;
         oLink.download = sFileName || "CommissionsList.pdf";
+        // eslint-disable-next-line @sap-ux/fiori-tools/sap-no-dom-insertion, @sap-ux/fiori-tools/sap-browser-api-warning, @sap-ux/fiori-tools/sap-no-proprietary-browser-api
         document.body.appendChild(oLink);
         oLink.click();
+        // eslint-disable-next-line @sap-ux/fiori-tools/sap-browser-api-warning, @sap-ux/fiori-tools/sap-no-proprietary-browser-api
         document.body.removeChild(oLink);
 
+        // eslint-disable-next-line @sap-ux/fiori-tools/sap-timeout-usage
         window.setTimeout(function () {
             window.URL.revokeObjectURL(sObjectUrl);
         }, 1000);
@@ -83,25 +95,26 @@ sap.ui.define([
     }
 
     function _openPrintOptionsDialog(oExtensionAPI) {
+        // eslint-disable-next-line no-undef
         return new Promise(function (resolve) {
             var oModel = _buildOptionsModel();
             var oDialog = new Dialog({
-                title: "Opzioni di stampa",
+                title: "{i18n>dialogTitle}",
                 contentWidth: "26rem",
                 content: new VBox({
                     items: [
                         new CheckBox({
-                            text: "Stampa dettaglio",
+                            text: "{i18n>printDetailText}",
                             selected: "{/DetailPrint}"
                         }),
                         new CheckBox({
-                            text: "Stampa con data scadenza",
+                            text: "i18n>printWithDueDate",
                             selected: "{/PrintWithDueDate}"
                         })
                     ]
                 }),
                 beginButton: new Button({
-                    text: "Conferma",
+                    text: "{i18n>confirmButtonText}",
                     type: "Emphasized",
                     press: function () {
                         resolve(oModel.getData());
@@ -109,7 +122,7 @@ sap.ui.define([
                     }
                 }),
                 endButton: new Button({
-                    text: "Annulla",
+                    text: "{i18n>cancelButtonText}",
                     press: function () {
                         resolve(null);
                         oDialog.close();
@@ -158,7 +171,12 @@ sap.ui.define([
         );
 
         if (!aFilters.length) {
-            throw new Error("Non è possibile eseguire la stampa senza aver indicato alcun filtro.");
+            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+            if (sLanguage === "it") {
+               throw new Error("Non è possibile eseguire la stampa senza aver indicato alcun filtro"); // i18n>errorNoFilterSend
+            } else {
+                throw new Error("It''s not possible to print PDF without having defined any filter"); // i18n>errorNoFilterSend
+            }
         }
 
         aFilters.push(new Filter("DetailPrint", FilterOperator.EQ, !!mOptions.DetailPrint));
@@ -186,7 +204,12 @@ sap.ui.define([
 
         sBase64 = typeof vAttachment === "string" ? vAttachment.replace(/\s/g, "") : "";
         if (!sBase64) {
-            throw new Error("Il servizio non ha restituito il contenuto PDF.");
+            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+            if (sLanguage === "it") {
+               throw new Error("Il servizio non ha restituito il contenuto PDF"); //i18n>errorPdfContent
+            } else {
+                throw new Error("The service did not return the PDF content"); //i18n>errorPdfContent
+            }
         }
 
         // OData V4 puo serializzare Edm.Binary in base64url:
@@ -235,7 +258,12 @@ sap.ui.define([
         var oBlob;
 
         if (!sAttachmentUrl) {
-            throw new Error("Il servizio non ha restituito il link dell'allegato PDF.");
+            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+            if (sLanguage === "it") {
+               throw new Error("Il servizio non ha restituito il link dell''allegato PDF"); //i18n>errorPdfLink
+            } else {
+                throw new Error("The service did not return the PDF attachment link"); //i18n>errorPdfLink
+            }
         }
 
         aCandidateUrls = _buildFallbackDownloadUrls(sAttachmentUrl);
@@ -250,7 +278,12 @@ sap.ui.define([
         }
 
         if (!oBlob) {
-            throw oLastError || new Error("Download PDF fallito.");
+            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+            if (sLanguage === "it") {
+               throw oLastError || new Error("Download PDF fallito"); //i18n>errorPdfDownload
+            } else {
+                throw oLastError || new Error("PDF download failed"); //i18n>errorPdfDownload
+            }
         }
 
         return oBlob;
@@ -264,13 +297,35 @@ sap.ui.define([
         var oListBinding = oModel.bindList("/PdfDownload", undefined, undefined, aFilters, {
             $select: "Attachment,FileName,MimeType"
         });
-        var aContexts = await oListBinding.requestContexts(0, 1);
+        var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+        try {
+            MessageLogHelper.showBusy("{i18n>busyDialogText}");
+            var aContexts = await oListBinding.requestContexts(0, 1);
+        } catch (oError) {
+            if (sLanguage === "it") {
+               throw new Error("Errore durante la stampa PDF" + " - " + oError.message); //i18n>errorPdfPrint
+            } else {
+                throw new Error("Error during PDF printing" + " - " + oError.message); //i18n>errorPdfPrint
+            }
+        } finally {
+            MessageLogHelper.hideBusy();
+        }
         var oContext;
         var oResult;
         var oBlob;
 
         if (!aContexts.length) {
-            throw new Error("Nessun dato trovato per i filtri selezionati.");
+            if (sLanguage === "it") {
+               throw new Error("Nessun dato trovato per i filtri selezionati"); //i18n>errorNoDataFound
+            } else {
+                throw new Error("No data found for the selected filters"); //i18n>errorNoDataFound
+            }
+        } else if (aContexts.length < 0) {
+            if (sLanguage === "it") {
+               throw new Error("Errore durante la generazione del PDF"); //i18n>errorPdfCreation
+            } else {
+                throw new Error("Error during PDF generation"); //i18n>errorPdfCreation
+            }
         }
 
         oContext = aContexts[0];

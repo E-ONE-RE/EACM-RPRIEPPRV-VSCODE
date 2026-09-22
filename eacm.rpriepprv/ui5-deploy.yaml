@@ -20,7 +20,7 @@ builder:
           name: /EACM/RPRIEPPRV
           description: Report Riepilogo Provvigioni
           package: /EACM/RPRIEPPRV
-          transport: DVLK900006
+          transport: DVLK900271
         exclude:
           - /test/
           - /localService/

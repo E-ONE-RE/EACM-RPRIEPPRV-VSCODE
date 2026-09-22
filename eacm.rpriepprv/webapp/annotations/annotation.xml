@@ -13,158 +13,199 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vkorg}"/>
                                     <PropertyValue Property="Value" Path="Vkorg"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vtweg}"/>
                                     <PropertyValue Property="Value" Path="Vtweg"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zclpr}"/>
                                     <PropertyValue Property="Value" Path="Zclpr"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vbeln}"/>
                                     <PropertyValue Property="Value" Path="Vbeln"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_posnr}"/>
                                     <PropertyValue Property="Value" Path="Posnr"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zcdaz}"/>
                                     <PropertyValue Property="Value" Path="Zcdaz"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zidag}"/>
                                     <PropertyValue Property="Value" Path="Zidag"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_bukrs}"/>
                                     <PropertyValue Property="Value" Path="Bukrs"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_ztpagDoc}"/>
                                     <PropertyValue Property="Value" Path="ZtpagDoc"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_namea}"/>
                                     <PropertyValue Property="Value" Path="Namea"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_ztpag}"/>
                                     <PropertyValue Property="Value" Path="Ztpag"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zdeag}"/>
                                     <PropertyValue Property="Value" Path="Zdeag"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vkgrp}"/>
                                     <PropertyValue Property="Value" Path="Vkgrp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vkbur}"/>
                                     <PropertyValue Property="Value" Path="Vkbur"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_waerk}"/>
                                     <PropertyValue Property="Value" Path="Waerk"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zzwaer}"/>
                                     <PropertyValue Property="Value" Path="Zzwaer"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_kunrg}"/>
                                     <PropertyValue Property="Value" Path="Kunrg"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_fkart}"/>
                                     <PropertyValue Property="Value" Path="Fkart"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_vbtyp}"/>
                                     <PropertyValue Property="Value" Path="Vbtyp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_fkdat}"/>  
                                     <PropertyValue Property="Value" Path="Fkdat"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_belnr}"/>
                                     <PropertyValue Property="Value" Path="Belnr"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_bldat}"/>
                                     <PropertyValue Property="Value" Path="Bldat"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_budat}"/>
                                     <PropertyValue Property="Value" Path="Budat"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_blart}"/>
                                     <PropertyValue Property="Value" Path="Blart"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_matnr}"/>
                                     <PropertyValue Property="Value" Path="Matnr"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_maktx}"/>
                                     <PropertyValue Property="Value" Path="Maktx"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zutmx}"/>
                                     <PropertyValue Property="Value" Path="Zutmx"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zstre}"/>
                                     <PropertyValue Property="Value" Path="Zstre"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zpcpr}"/>
                                     <PropertyValue Property="Value" Path="Zpcpr"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zdest}"/>
                                     <PropertyValue Property="Value" Path="Zdest"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zhistor}"/>
                                     <PropertyValue Property="Value" Path="Zhistor"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zabin}"/>
                                     <PropertyValue Property="Value" Path="Zabin"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_kostl}"/>
                                     <PropertyValue Property="Value" Path="Kostl"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_ztprv}"/>
                                     <PropertyValue Property="Value" Path="Ztprv"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_kurrf}"/>
                                     <PropertyValue Property="Value" Path="Kurrf"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="Zimpp"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zimpp}"/>
                                     <PropertyValue Property="Value" Path="Zimpp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="Zimco"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zimco}"/>
                                     <PropertyValue Property="Value" Path="Zimco"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="Zimmg"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zimmg}"/>
                                     <PropertyValue Property="Value" Path="Zimmg"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="Ziman"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_ziman}"/>
                                     <PropertyValue Property="Value" Path="Ziman"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="ImpProvv"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_impProvv}"/>
                                     <PropertyValue Property="Value" Path="ImpProvv"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="ImpMatur"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_impMatur}"/>
                                     <PropertyValue Property="Value" Path="ImpMatur"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="ImpDaMat"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_impDaMat}"/>
                                     <PropertyValue Property="Value" Path="ImpDaMat"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="ImpRecup"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_impRecup"/>
                                     <PropertyValue Property="Value" Path="ImpRecup"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zidfs"/>
                                     <PropertyValue Property="Value" Path="Zidfs"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zamcf"/>
                                     <PropertyValue Property="Value" Path="Zamcf"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_ztpcd"/>
                                     <PropertyValue Property="Value" Path="Ztpcd"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zwaersp"/>
                                     <PropertyValue Property="Value" Path="Zwaersp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zkurrfp"/>
                                     <PropertyValue Property="Value" Path="Zkurrfp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="{@i18n>label_zpercsosp"/>
                                     <PropertyValue Property="Value" Path="Zpercsosp"/>
                                 </Record>
                             </Collection>
@@ -179,6 +220,76 @@
                             <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup"/>
                         </Record>
                     </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_bukrs}"/>
+                            <PropertyValue Property="Value" Path="Bukrs"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_fkdat}"/>
+                            <PropertyValue Property="Value" Path="Fkdat"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_vkorg}"/>
+                            <PropertyValue Property="Value" Path="Vkorg"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_zclpr}"/>
+                            <PropertyValue Property="Value" Path="Zclpr"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_zcdaz}"/>
+                            <PropertyValue Property="Value" Path="Zcdaz"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_namea}"/>
+                            <PropertyValue Property="Value" Path="Namea"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_vbeln}"/>
+                            <PropertyValue Property="Value" Path="Vbeln"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_kunrg}"/>
+                            <PropertyValue Property="Value" Path="Kunrg"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_impProvv}"/>
+                            <PropertyValue Property="Value" Path="ImpProvv"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_impMatur}"/>
+                            <PropertyValue Property="Value" Path="ImpMatur"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_waerk}"/>
+                            <PropertyValue Property="Value" Path="Waerk"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>label_zstre}"/>
+                            <PropertyValue Property="Value" Path="Zstre"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="{@i18n>nomeheader}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>nometable}"/>
+                    </Record>
                 </Annotation>
             </Annotations>
         </Schema>
