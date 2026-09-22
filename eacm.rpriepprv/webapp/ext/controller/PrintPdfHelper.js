@@ -108,7 +108,7 @@ sap.ui.define([
                             selected: "{/DetailPrint}"
                         }),
                         new CheckBox({
-                            text: "i18n>printWithDueDate",
+                            text: "{i18n>printWithDueDate}",
                             selected: "{/PrintWithDueDate}"
                         })
                     ]
