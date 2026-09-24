@@ -11,36 +11,25 @@ sap.ui.define([
 
 	var MessageType = coreLibrary.MessageType;
 
-	// ResourceBundle i18n dell'applicazione.
-	// Viene valorizzato tramite init().
+	// ResourceBundle i18n dell'applicazione, valorizzato tramite init().
 	var oResourceBundle = null;
 	var pResourceBundle = null;
 
-	/**
-      * Bundle i18n dell'applicazione.
-      * Corrisponde nel manifest.json a:
-      * "bundleName": "eacm.rpriepprv.i18n.i18n"
-      */
+	// Bundle i18n dell'applicazione.
+    // Corrisponde alla voce "bundleName" nel manifest.json
     var sBundleName = "eacm.rpriepprv.i18n.i18n";
 
 	// BusyDialog condiviso dal modulo
 	var oBusyDialog = new BusyDialog();
-//	var oBusyDialog = new BusyDialog({
-//		title: "{i18n>busyDialogTitle}",
-//		text: "{i18n>busyDialogText}"
-//	});
 	
-	/**
-	  * Verifica se si tratta di una chiave di i18n.
-	  */
+	// Verifica se si tratta di una chiave di i18n.
 	function isI18nKey(sValue) {
 		return typeof sValue === "string" && /^\{i18n>[^}]+\}$/.test(sValue);
 	}
 
-	/**
-	  * Rimuove la sintassi binding i18n dalla chiave.
-	  */
-	function getText(sValue) {
+	// Restituisce un testo leggibile (Human-Readable).
+	// Se presente la chiave i18n, ricava il testo corrispondente
+	function getTextHR(sValue) {
 	    if (sValue === null || sValue === undefined) {
    	   		return "";
     	}
@@ -53,28 +42,26 @@ sap.ui.define([
 		if (!oResourceBundle) {
 			return sValue;
 		}
-	    return oResourceBundle.getText(sKey);
+		var sText = oResourceBundle.getText(sKey);
+	    if (sText === null || sText === undefined) {
+   	   		return sKey;
+    	} else {
+		    return oResourceBundle.getText(sKey);
+		}
 	}
 
 	return {
 
-		/**
-		  * Inizializza il MessageLogViewer.
-		  * Deve essere chiamato una volta, ad esempio nel
-		  * onInit() del Controller.
-		  */
+		// Inizializza il MessageLogViewer.
+		// Deve essere chiamato una volta dal Controller.
 		init: function (oExtensionAPI) {
-            /**
-              * Non utilizziamo:
-              *
-              * oExtensionAPI.getModel("i18n")
-              * oExtensionAPI.getAppComponent()
-              *
-              * perché nel nostro runtime non sono disponibili/risolvono
-              * correttamente il modello.
-              *
-              * Carichiamo direttamente il ResourceBundle.
-              */
+            /* Non utilizziamo:
+             * - oExtensionAPI.getModel("i18n")
+             * - oExtensionAPI.getAppComponent()
+             * perché nel nostro runtime non sono disponibili
+			 * e/o non risolvono correttamente il modello. */
+            
+			 // Carichiamo direttamente il ResourceBundle.
             pResourceBundle = ResourceBundle.create({
                 bundleName: sBundleName,
                 async: true
@@ -86,43 +73,32 @@ sap.ui.define([
 		},
 
 		/**
-		  * Mostra il BusyDialog.
-		  * 
-		  * @param {string} sText Chiave i18n per il testo del BusyDialog.
-		  */ 
+		 * Mostra il BusyDialog.
+		 * @param {string} sText Chiave i18n per il testo del BusyDialog.
+		 */
 		showBusy: function (sText) {
-///			if (!oResourceBundle) { 
-//				throw new Error("Call MessageLogViewer.init() to initialize the MessageLogViewer module.");
-//			}
-//			oBusyDialog.setTitle(oResourceBundle.getText("{i18n>busyTitle}"));
-			oBusyDialog.setTitle(getText("{i18n>busyTitle}"));
-//			oBusyDialog.setText(oResourceBundle.getText(sText) || oResourceBundle.getText("{i18n>busyText}"));
-			oBusyDialog.setText(getText(sText) || getText("{i18n>busyText}"));
+			oBusyDialog.setTitle(getTextHR("{i18n>busyDialogTitle}"));
+			oBusyDialog.setText(getTextHR(sText) || getTextHR("{i18n>busyDialogText}"));
 			oBusyDialog.open();
 		},
 		
-		/**
-		  *  Chiude il BusyDialog.
-		  */
+		// Chiude il BusyDialog.
 		hideBusy: function () {
 			oBusyDialog.close();
 		},		
 
 	    /**
-	      *  Visualizza una lista di messaggi all'interno di una popup.
-	      *
-	      *  @param {Array} aMessages Array di oggetti messaggio.
-		  */
+	     * Visualizza una lista di messaggi all'interno di una popup.
+	     * @param {Array} aMessages Array di oggetti messaggio.
+		 */
     	showMessages: async function (aMessages) {
 
-        	// Nessun messaggio: non aprire la popup
-//	        if (!Array.isArray(aMessages) || aMessages.length === 0) {
+        	// Nessun messaggio: non deve aprire la popup
 			if (!aMessages || !aMessages.length) {
     	        return;
         	}
 
             // Aspetta che il ResourceBundle sia disponibile.
-            // Se init() è già terminato, la Promise è già risolta.
             if (pResourceBundle) {
             	await pResourceBundle;
             } else {
@@ -133,29 +109,25 @@ sap.ui.define([
     	    var aMessageItems = aMessages.map(function (oMessage) {
 	            return new MessageItem({
     	            type: oMessage.type || MessageType.Error,
-//        	        title: oResourceBundle.getText(oMessage.title) || oResourceBundle.getText("{i18n>messageTitle}"),
-        	        title: getText(oMessage.title) || getText("{i18n>messageTitle}"),
-            	    description: getText(oMessage.description) || "",
-					key: oMessage.key || "",
-					conter: oMessage.counter || 0
+        	        title: getTextHR(oMessage.title) || getTextHR("{i18n>messageTitle}"),
+            	    description: getTextHR(oMessage.description) || "",
+					subtitle: oMessage.key || "",
+					counter: oMessage.counter || 0
     	        });
         	});
 
 	        // Creazione del MessageView.
-    	    // Gli item vengono passati direttamente
-        	// all'aggregazione "items".
+    	    // Gli item vengono passati direttamente all'aggregazione "items".
 	        var oMessageView = new MessageView({
     	        items: aMessageItems
         	});
 
 	        // Creazione della popup
     	    var oDialog = new Dialog({
-//        	    title: oResourceBundle.getText("{i18n>messagesText}"),
-        	    title: getText("{i18n>messagesText}"),
+        	    title: getTextHR("{i18n>messagesText}"),
             	contentWidth: "50%",
 	            contentHeight: "50%",
 				resizable: true,
-
         	    // Evita scrollbar aggiuntive del Dialog.
             	// Sarà il MessageView a gestire il proprio contenuto.
 	            horizontalScrolling: false,
@@ -166,8 +138,7 @@ sap.ui.define([
             	],
 
 	            beginButton: new Button({
-//    	            text: oResourceBundle.getText("{i18n>closeButtonText}"),
-    	            text: getText("{i18n>closeButtonText}"),
+    	            text: getTextHR("{i18n>closeButtonText}"),
         	        press: function () {
                     	oDialog.close();
                 	}
