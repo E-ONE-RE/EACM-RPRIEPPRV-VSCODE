@@ -72,6 +72,10 @@ sap.ui.define([
 			return pResourceBundle;
 		},
 
+		i18nText: function(sValue) {
+			return getTextHR(sValue);
+		},
+
 		/**
 		 * Mostra il BusyDialog.
 		 * @param {string} sText Chiave i18n per il testo del BusyDialog.

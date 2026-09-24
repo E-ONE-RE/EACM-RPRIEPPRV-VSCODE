@@ -35,13 +35,7 @@ sap.ui.define([
         });
 
         if (!oResponse.ok) {
-            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            var oError;
-            if (sLanguage === "it") {
-                oError = new Error("Download PDF fallito con stato HTTP" + oResponse.status + " " + oResponse.statusText); // i18n>errorPdfDownloadHTTP
-            } else {
-                oError = new Error("PDF download failed with HTTP status" + oResponse.status + " " + oResponse.statusText); // i18n>errorPdfDownloadHTTP
-            }
+            var oError = new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownloadHTTP}" + oResponse.status + " " + oResponse.statusText));
             oError.status = oResponse.status;
             oError.responseText = await oResponse.text();
             throw oError;
@@ -171,12 +165,7 @@ sap.ui.define([
         );
 
         if (!aFilters.length) {
-            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            if (sLanguage === "it") {
-               throw new Error("Non è possibile eseguire la stampa senza aver indicato alcun filtro"); // i18n>errorNoFilterSend
-            } else {
-                throw new Error("It''s not possible to print PDF without having defined any filter"); // i18n>errorNoFilterSend
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorNoFilterPrint}"));
         }
 
         aFilters.push(new Filter("DetailPrint", FilterOperator.EQ, !!mOptions.DetailPrint));
@@ -204,12 +193,7 @@ sap.ui.define([
 
         sBase64 = typeof vAttachment === "string" ? vAttachment.replace(/\s/g, "") : "";
         if (!sBase64) {
-            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            if (sLanguage === "it") {
-               throw new Error("Il servizio non ha restituito il contenuto PDF"); //i18n>errorPdfContent
-            } else {
-                throw new Error("The service did not return the PDF content"); //i18n>errorPdfContent
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfContent}"));
         }
 
         // OData V4 puo serializzare Edm.Binary in base64url:
@@ -252,19 +236,13 @@ sap.ui.define([
     }
 
     async function _downloadAttachmentStream(oContext, oResult) {
-        var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
         var sAttachmentUrl = _buildAttachmentUrl(oContext, oResult);
         var aCandidateUrls;
         var oLastError;
         var oBlob;
 
         if (!sAttachmentUrl) {
-            sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            if (sLanguage === "it") {
-               throw new Error("Il servizio non ha restituito il link dell''allegato PDF"); //i18n>errorPdfLink
-            } else {
-                throw new Error("The service did not return the PDF attachment link"); //i18n>errorPdfLink
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfLink}"));
         }
 
         aCandidateUrls = _buildFallbackDownloadUrls(sAttachmentUrl);
@@ -279,12 +257,7 @@ sap.ui.define([
         }
 
         if (!oBlob) {
-            sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            if (sLanguage === "it") {
-               throw oLastError || new Error("Download PDF fallito"); //i18n>errorPdfDownload
-            } else {
-                throw oLastError || new Error("PDF download failed"); //i18n>errorPdfDownload
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownload}"));
         }
 
         return oBlob;
@@ -298,16 +271,12 @@ sap.ui.define([
         var oListBinding = oModel.bindList("/PdfDownload", undefined, undefined, aFilters, {
             $select: "Attachment,FileName,MimeType"
         });
-        var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
+
         try {
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
             var aContexts = await oListBinding.requestContexts(0, 1);
         } catch (oError) {
-            if (sLanguage === "it") {
-               throw new Error("Errore durante la stampa PDF" + " - " + oError.message); //i18n>errorPdfPrint
-            } else {
-                throw new Error("Error during PDF printing" + " - " + oError.message); //i18n>errorPdfPrint
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfPrint}" + " - " + oError.message));
         } finally {
             MessageLogHelper.hideBusy();
         }
@@ -316,17 +285,9 @@ sap.ui.define([
         var oBlob;
 
         if (!aContexts.length) {
-            if (sLanguage === "it") {
-               throw new Error("Nessun dato trovato per i filtri selezionati"); //i18n>errorNoDataFound
-            } else {
-                throw new Error("No data found for the selected filters"); //i18n>errorNoDataFound
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorNoDataFound}"));
         } else if (aContexts.length < 0) {
-            if (sLanguage === "it") {
-               throw new Error("Errore durante la generazione del PDF"); //i18n>errorPdfCreation
-            } else {
-                throw new Error("Error during PDF generation"); //i18n>errorPdfCreation
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfCreation}"));
         }
 
         oContext = aContexts[0];

@@ -102,12 +102,7 @@ sap.ui.define([
         );
 
         if (!aFilters.length) {
-            var sLanguage = sap.ui.getCore().getConfiguration().getLanguage().split("-")[0];
-            if (sLanguage === "it") {
-               throw new Error("Non è possibile eseguire l''invio mail senza aver indicato alcun filtro"); // i18n>errorNoFilterSend
-            } else {
-                throw new Error("It''s not possible to send e-mails without having defined any filter"); // i18n>errorNoFilterSend
-            }
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorNoFilterSend}"));
        }
 
         aFilters.push(new Filter("DetailPrint", FilterOperator.EQ, !!mOptions.DetailPrint));
@@ -124,7 +119,7 @@ sap.ui.define([
         var oListBinding = oModel.bindList("/MailSender", undefined, undefined, aFilters, {
             $select: "AgentCode,AgentName,StatusCode,LogMessage,ProcessedObj"
         });
-        
+
         try {
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
             var aContexts = await oListBinding.requestContexts(0, 0);
