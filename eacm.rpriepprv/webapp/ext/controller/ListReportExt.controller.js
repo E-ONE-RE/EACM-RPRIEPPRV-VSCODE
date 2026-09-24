@@ -9,8 +9,8 @@ sap.ui.define([
 
     return ControllerExtension.extend("eacm.rpriepprv.ext.controller.ListReportExt", {
         override: { 
-            onInit: async function () { 
-                await MessageLogHelper.init(this.base.getExtensionAPI()); 
+            onInit: function () { 
+                MessageLogHelper.init(); 
             } 
         },
         // In lista il bottone usa i filtri gia applicati con GO
