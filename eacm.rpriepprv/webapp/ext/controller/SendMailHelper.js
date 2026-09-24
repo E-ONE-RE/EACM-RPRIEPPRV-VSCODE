@@ -124,7 +124,7 @@ sap.ui.define([
         var oListBinding = oModel.bindList("/MailSender", undefined, undefined, aFilters, {
             $select: "AgentCode,AgentName,StatusCode,LogMessage,ProcessedObj"
         });
-
+        
         try {
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
             var aContexts = await oListBinding.requestContexts(0, 0);

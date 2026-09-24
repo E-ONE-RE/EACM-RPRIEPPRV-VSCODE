@@ -181,31 +181,31 @@
                                     <PropertyValue Property="Value" Path="ImpDaMat"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_impRecup"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_impRecup}"/>
                                     <PropertyValue Property="Value" Path="ImpRecup"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_zidfs"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zidfs}"/>
                                     <PropertyValue Property="Value" Path="Zidfs"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_zamcf"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zamcf}"/>
                                     <PropertyValue Property="Value" Path="Zamcf"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_ztpcd"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_ztpcd}"/>
                                     <PropertyValue Property="Value" Path="Ztpcd"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_zwaersp"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zwaersp}"/>
                                     <PropertyValue Property="Value" Path="Zwaersp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_zkurrfp"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zkurrfp}"/>
                                     <PropertyValue Property="Value" Path="Zkurrfp"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>label_zpercsosp"/>
+                                    <PropertyValue Property="Label" String="{@i18n>label_zpercsosp}"/>
                                     <PropertyValue Property="Value" Path="Zpercsosp"/>
                                 </Record>
                             </Collection>
