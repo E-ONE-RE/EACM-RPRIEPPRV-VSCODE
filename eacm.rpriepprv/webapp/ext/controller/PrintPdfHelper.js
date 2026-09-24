@@ -35,7 +35,7 @@ sap.ui.define([
         });
 
         if (!oResponse.ok) {
-            var oError = new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownloadHTTP}" + oResponse.status + " " + oResponse.statusText));
+            var oError = new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownloadHTTP}") + oResponse.status + " " + oResponse.statusText);
             oError.status = oResponse.status;
             oError.responseText = await oResponse.text();
             throw oError;
@@ -257,7 +257,7 @@ sap.ui.define([
         }
 
         if (!oBlob) {
-            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownload}"));
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfDownload}") + " - " + oLastError.message);
         }
 
         return oBlob;
@@ -276,7 +276,7 @@ sap.ui.define([
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
             var aContexts = await oListBinding.requestContexts(0, 1);
         } catch (oError) {
-            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfPrint}" + " - " + oError.message));
+            throw new Error(MessageLogHelper.i18nText("{i18n>errorPdfPrint}") + " - " + oError.message);
         } finally {
             MessageLogHelper.hideBusy();
         }
