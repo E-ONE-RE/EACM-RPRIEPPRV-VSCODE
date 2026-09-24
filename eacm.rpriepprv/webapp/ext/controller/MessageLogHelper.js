@@ -52,7 +52,7 @@ sap.ui.define([
 
 	return {
 
-		// Inizializza il MessageLogViewer.
+		// Inizializza il MessageLogHelper.
 		// Deve essere chiamato una volta dal Controller.
 		init: function (oExtensionAPI) {
             /* Non utilizziamo:
@@ -106,7 +106,7 @@ sap.ui.define([
             if (pResourceBundle) {
             	await pResourceBundle;
             } else {
-				throw new Error("Call MessageLogViewer.init() to initialize the MessageLogViewer module.");
+				throw new Error("Call MessageLogHelper.init() to initialize the MessageLogHelper module.");
 			}
 
 	        // Creazione dei MessageItem
