@@ -1,4 +1,4 @@
-sap.ui.define([
+tWithDueDatesap.ui.define([
     "sap/m/Button",
     "sap/m/CheckBox",
     "sap/m/Dialog",
@@ -23,8 +23,9 @@ sap.ui.define([
     function _buildOptionsModel() {
         return new JSONModel({
             DetailPrint: false,
-            IncludeBlocked: false,
-            IncludeAntMinReceived: false,
+            PrintWithDueDate: false,
+//          IncludeBlocked: false,
+//          IncludeAntMinReceived: false,
             MailTitle: "",
             MailBody: ""
         });
@@ -57,32 +58,32 @@ sap.ui.define([
                             text: "{i18n>objectText}"
                         }),
                         new Input({
-                            placeholder: "Inserisci il titolo...",
-                            value: "{/MailTitle}",                      // Creare nella struttura di input
+                            placeholder: "{i18n>insertObject}",
+                            value: "{/MailTitle}",                     
                             type: "Text",
                             required: true,
                             valueState: "Error",
-                            valueStateText: "il titolo è obbligatorio",
+                            valueStateText: "{i18n>objectRequired}",
                             width: "100%"
                         }).addStyleClass("sapUiSmallMarginBottom"),
                         new Label({
                             text: "{i18n>bodyText}"
                         }),
                         new TextArea({
-                            placeholder: "Inserisci il testo...",
-                            value: "{/MailBody}",                     // Creare nella struttura di input
+                            placeholder: "{i18n>insertBody}",
+                            value: "{/MailBody}",      
                             required: true,
                             valueState: "Error",
-                            valueStateText: "il testo è obbligatorio",
+                            valueStateText: "{i18n>bodyRequired}",
                             growing: true,
                             width: "100%",
                             rows: 8
                         }).addStyleClass("sapUiSmallMarginBottom"),
                         new Label({
-                            text: "Valori jolly utilizzabili nei testi:"
+                            text: "{i18n>jollyText}"
                         }),
                         new TextArea({
-                            value: "- &AGENTE&\t -> Codice Agente\r\n- &COMPET&\t -> Competenza Proforma\r\n- &IDFACS&\t -> ID Facsimile\r\n- &NOME&\t -> Nome Agente",
+                            value: "{i18n>jollyValues}",
                             editable: false,
                             width: "100%",
                             rows: 4
@@ -159,16 +160,101 @@ sap.ui.define([
             throw new Error(MessageLogHelper.i18nText("{i18n>errorNoFilterSend}"));
        }
 
+/******************************************************************************
         aFilters.push(new Filter("DetailPrint", FilterOperator.EQ, !!mOptions.DetailPrint));
         aFilters.push(new Filter("PrintWithDueDate", FilterOperator.EQ, !!mOptions.PrintWithDueDate));
+******************************************************************************/
 
         return aFilters;
     }
+
+    function _buildMailSenderFiltersJson(aFilters) {
+        var aConditions = [];
+
+        var mOperatorMap = {
+            EQ: "EQ",
+            NE: "NE",
+            GT: "GT",
+            GE: "GE",
+            LT: "LT",
+            LE: "LE",
+            BT: "BT",
+            NB: "NB",
+            Contains: "CP",
+            NotContains: "NP",
+            StartsWith: "CP",
+            EndsWith: "CP"
+        };
+
+        function _formatValue(vValue, sOperator) {
+            if (vValue === null || vValue === undefined) {
+                return "";
+            }
+            if (vValue instanceof Date) {
+                return vValue.toISOString().slice(0, 10).replace(/-/g, "");
+            }
+            var sValue = String(vValue);
+            if (sOperator === "Contains") {
+                return "*" + sValue + "*";
+            }
+            if (sOperator === "NotContains") {
+                return "*" + sValue + "*";
+            }
+            if (sOperator === "StartsWith") {
+                return sValue + "*";
+            }
+            if (sOperator === "EndsWith") {
+                return "*" + sValue;
+            }
+            return sValue;
+        }
+
+        function _processFilter(oFilter) {
+            if (!oFilter) {
+                return;
+            }
+
+            // Gestione di gruppi di filtri annidati
+            if (Array.isArray(oFilter.aFilters) && oFilter.aFilters.length) {
+                oFilter.aFilters.forEach(_processFilter);
+                return;
+            }
+
+            var sPath = oFilter.sPath;
+            var sOperator = oFilter.sOperator;
+
+            if (!sPath || !sOperator) {                
+                throw new Error(MessageLogHelper.i18nText("{i18n>unsupportedFilter}"));
+            }
+
+            var sOption = mOperatorMap[sOperator];
+
+            if (!sOption) {
+                throw new Error(MessageLogHelper.i18nText("{i18n>errorUnsupportedOperator}") + sOperator);
+            }
+
+            aConditions.push({
+                field: sPath,
+                sign: "I",
+                option: sOption,
+                low: _formatValue(oFilter.oValue1, sOperator),
+                high: _formatValue(oFilter.oValue2, sOperator)
+            });
+        }
+
+        aFilters.forEach(_processFilter);
+
+        return JSON.stringify({
+            conditions: aConditions
+        });
+    }
+
 
     // eslint-disable-next-line max-statements
     async function _sendMailFromListReport(oExtensionAPI, mOptions) {
 /******************************************************************************
 ***   vecchia modalità ( GET )  -->   /EACM/CL_RPRIEPPRV_MAIL_QRY  if..~Select
+-------------------------------------------------------------------------------
 ***   nuova modalità  ( POST )  -->   /EACM/BP_R_RPRIEPPRV_MAIL    sendMail
 ******************************************************************************/
 
