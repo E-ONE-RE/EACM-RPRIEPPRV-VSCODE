@@ -3,13 +3,16 @@ sap.ui.define([
     "sap/m/CheckBox",
     "sap/m/Dialog",
     "sap/m/VBox",
+    "sap/m/Label",
+    "sap/m/Input",
+    "sap/m/TextArea",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/library",
     "eacm/rpriepprv/ext/controller/MessageLogHelper"
 // eslint-disable-next-line max-params
-], function (Button, CheckBox, Dialog, VBox, Filter, FilterOperator, JSONModel, coreLibrary, MessageLogHelper) {
+], function (Button, CheckBox, Dialog, VBox, Label, Input, TextArea, Filter, FilterOperator, JSONModel, coreLibrary, MessageLogHelper) {
     "use strict";
 
     var MessageType = coreLibrary.MessageType;
@@ -21,7 +24,9 @@ sap.ui.define([
         return new JSONModel({
             DetailPrint: false,
             IncludeBlocked: false,
-            IncludeAntMinReceived: false
+            IncludeAntMinReceived: false,
+            MailTitle: "",
+            MailBody: ""
         });
     }
 
@@ -31,7 +36,10 @@ sap.ui.define([
             var oModel = _buildOptionsModel();
             var oDialog = new Dialog({
                 title: "{i18n>dialogTitle2}",
-                contentWidth: "26rem",
+				resizable: true,
+                draggable: true,
+            	contentWidth: "40%",
+	            contentHeight: "60%",
                 content: new VBox({
                     items: [
                         new CheckBox({
@@ -41,12 +49,58 @@ sap.ui.define([
                         new CheckBox({
                             text: "{i18n>printWithDueDate}",
                             selected: "{/PrintWithDueDate}"
+                        }),
+                        new sap.m.FlexBox({
+                            height: "20px"
+                        }),
+                        new Label({
+                            text: "{i18n>objectText}"
+                        }),
+                        new Input({
+                            placeholder: "Inserisci il titolo...",
+                            value: "{/MailTitle}",                      // Creare nella struttura di input
+                            type: "Text",
+                            required: true,
+                            valueState: "Error",
+                            valueStateText: "il titolo è obbligatorio",
+                            width: "100%"
+                        }).addStyleClass("sapUiSmallMarginBottom"),
+                        new Label({
+                            text: "{i18n>bodyText}"
+                        }),
+                        new TextArea({
+                            placeholder: "Inserisci il testo...",
+                            value: "{/MailBody}",                     // Creare nella struttura di input
+                            required: true,
+                            valueState: "Error",
+                            valueStateText: "il testo è obbligatorio",
+                            growing: true,
+                            width: "100%",
+                            rows: 8
+                        }).addStyleClass("sapUiSmallMarginBottom"),
+                        new Label({
+                            text: "Valori jolly utilizzabili nei testi:"
+                        }),
+                        new TextArea({
+                            value: "- &AGENTE&\t -> Codice Agente\r\n- &COMPET&\t -> Competenza Proforma\r\n- &IDFACS&\t -> ID Facsimile\r\n- &NOME&\t -> Nome Agente",
+                            editable: false,
+                            width: "100%",
+                            rows: 4
                         })
                     ]
                 }),
                 beginButton: new Button({
                     text: "{i18n>confirmButtonText}",
                     type: "Emphasized",
+                    enabled: {
+                        parts: [
+                            { path: "/MailTitle" },
+                            { path: "/MailBody" }
+                        ],
+                        formatter: function (sTitle, sBody) {
+                            return !!sTitle?.trim() && !!sBody?.trim();
+                        }
+                    },
                     press: function () {
                         resolve(oModel.getData());
                         oDialog.close();
@@ -111,18 +165,56 @@ sap.ui.define([
         return aFilters;
     }
 
+    // eslint-disable-next-line max-statements
     async function _sendMailFromListReport(oExtensionAPI, mOptions) {
+/******************************************************************************
+***   vecchia modalità ( GET )  -->   /EACM/CL_RPRIEPPRV_MAIL_QRY  if..~Select
+***   nuova modalità  ( POST )  -->   /EACM/BP_R_RPRIEPPRV_MAIL    sendMail
+******************************************************************************/
+
         var oModel = oExtensionAPI.getModel();
         var aFilters = _buildMailSenderFilters(oExtensionAPI, mOptions);
-        // Non si leggono le righe HTML gia caricate in tabella:
+/******************************************************************************
+        // Non si leggono le righe HTML gia caricate in tabella:     // * GET *
         // si rimandano al backend i filtri attivi, cosi il dataset e completo anche con paging server-side.
         var oListBinding = oModel.bindList("/MailSender", undefined, undefined, aFilters, {
             $select: "AgentCode,AgentName,StatusCode,LogMessage,ProcessedObj"
         });
+-----------------------------------------------------------------------------*/
+        // Prepara i filtri in un formato JSON serializzabile.      // * POST *
+        // NOTA: questa funzione deve convertire i filtri UI5 in un
+        // formato compatibile con FiltersJson dell'action RAP.
+        var sFiltersJson = _buildMailSenderFiltersJson(aFilters);
+        var aResults;
+/*****************************************************************************/
 
         try {
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
-            var aContexts = await oListBinding.requestContexts(0, 0);
+/******************************************************************************
+            var aContexts = await oListBinding.requestContexts(0, 0); //* GET *
+-----------------------------------------------------------------------------*/
+            // Invocazione della action RAP                         // * POST *
+            var oAction = oModel.bindContext("/MailSender/sendMail(...)");
+            oAction.setParameter("DetailPrint", mOptions.DetailPrint);
+            oAction.setParameter("PrintWithDueDate", mOptions.PrintWithDueDate);
+            oAction.setParameter("MailTitle", mOptions.MailTitle);
+            oAction.setParameter("MailBody", mOptions.MailBody);
+            oAction.setParameter("FiltersJson", sFiltersJson);
+            // Esegue la POST
+            await oAction.execute();
+            // Legge il risultato restituito dalla action
+            var oBoundContext = oAction.getBoundContext();
+            var oResultData = await oBoundContext.requestObject();
+            // In base alla forma della risposta OData, i risultati possono
+            // essere esposti direttamente come array oppure nella proprietà value.
+            if (Array.isArray(oResultData)) {
+                aResults = oResultData;
+            } else if (oResultData && Array.isArray(oResultData.value)) {
+                aResults = oResultData.value;
+            } else if (oResultData && Array.isArray(oResultData.results)) {
+                aResults = oResultData.results;
+            }
+/*****************************************************************************/
         } catch (oError) {
             MessageLogHelper.showMessages([{
                 type: MessageType.Error,
@@ -133,7 +225,9 @@ sap.ui.define([
         } finally {
             MessageLogHelper.hideBusy();
         }
-        var oContext;
+/******************************************************************************
+        var oContext;                                                // * GET *
+******************************************************************************/
         var oResult;
         var error = false;
 		var xType = "";
@@ -141,10 +235,9 @@ sap.ui.define([
         var xRefKey = "";
         var xDescription = "";
         var xCounter = 0;
-
         var aModel = [];
 
-        if (!aContexts.length) {
+        if (!aResults.length) {                              //  (!aContext.length) {
             MessageLogHelper.showMessages([{
                 type: MessageType.Error,
                 title: "{i18n>errorNoDataFound}",
@@ -152,11 +245,15 @@ sap.ui.define([
             }]);
             return;
         } else {
-            for (var i = 0; i < aContexts.length; i++) {
+            for (var i = 0; i < aResults.length; i++) {     //  for (var i = 0; i < aContext.length; i++) {
                 xType = xTitle = xRefKey = xDescription = "";
                 xCounter = 0;
-                oContext = aContexts[i];
+/******************************************************************************
+                oContext = aContexts[i];                             // * GET *
                 oResult = oContext.getObject();
+-----------------------------------------------------------------------------*/
+                oResult = aResults[i];                              // * POST *
+/*****************************************************************************/
                 if (oResult && oResult.StatusCode !== "S") {
                     error = true;
                     xType = MessageType.Error;

@@ -132,6 +132,7 @@ sap.ui.define([
             	contentWidth: "50%",
 	            contentHeight: "50%",
 				resizable: true,
+				draggable: true,
         	    // Evita scrollbar aggiuntive del Dialog.
             	// Sarà il MessageView a gestire il proprio contenuto.
 	            horizontalScrolling: false,
