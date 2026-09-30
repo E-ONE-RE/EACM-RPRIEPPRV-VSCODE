@@ -1,4 +1,4 @@
-tWithDueDatesap.ui.define([
+sap.ui.define([
     "sap/m/Button",
     "sap/m/CheckBox",
     "sap/m/Dialog",
@@ -14,6 +14,8 @@ tWithDueDatesap.ui.define([
 // eslint-disable-next-line max-params
 ], function (Button, CheckBox, Dialog, VBox, Label, Input, TextArea, Filter, FilterOperator, JSONModel, coreLibrary, MessageLogHelper) {
     "use strict";
+
+    var MAIL_HTTP_URL = "/sap/bc/http/EACM/RPRIEPPRV_HTTP_HDL?sap-client=100";
 
     var MessageType = coreLibrary.MessageType;
 
@@ -160,11 +162,6 @@ tWithDueDatesap.ui.define([
             throw new Error(MessageLogHelper.i18nText("{i18n>errorNoFilterSend}"));
        }
 
-/******************************************************************************
-        aFilters.push(new Filter("DetailPrint", FilterOperator.EQ, !!mOptions.DetailPrint));
-        aFilters.push(new Filter("PrintWithDueDate", FilterOperator.EQ, !!mOptions.PrintWithDueDate));
-******************************************************************************/
-
         return aFilters;
     }
 
@@ -250,57 +247,92 @@ tWithDueDatesap.ui.define([
     }
 
 
-    // eslint-disable-next-line max-statements
+    // eslint-disable-next-line max-statements, complexity
     async function _sendMailFromListReport(oExtensionAPI, mOptions) {
-/******************************************************************************
-***   vecchia modalità ( GET )  -->   /EACM/CL_RPRIEPPRV_MAIL_QRY  if..~Select
--------------------------------------------------------------------------------
-***   nuova modalità  ( POST )  -->   /EACM/BP_R_RPRIEPPRV_MAIL    sendMail
-******************************************************************************/
 
-        var oModel = oExtensionAPI.getModel();
         var aFilters = _buildMailSenderFilters(oExtensionAPI, mOptions);
-/******************************************************************************
-        // Non si leggono le righe HTML gia caricate in tabella:     // * GET *
-        // si rimandano al backend i filtri attivi, cosi il dataset e completo anche con paging server-side.
-        var oListBinding = oModel.bindList("/MailSender", undefined, undefined, aFilters, {
-            $select: "AgentCode,AgentName,StatusCode,LogMessage,ProcessedObj"
-        });
------------------------------------------------------------------------------*/
-        // Prepara i filtri in un formato JSON serializzabile.      // * POST *
-        // NOTA: questa funzione deve convertire i filtri UI5 in un
-        // formato compatibile con FiltersJson dell'action RAP.
+
+        // Conversione dei filtri UI5 nel formato atteso dal backend.
         var sFiltersJson = _buildMailSenderFiltersJson(aFilters);
-        var aResults;
-/*****************************************************************************/
+
+        var aResults = [];
 
         try {
             MessageLogHelper.showBusy("{i18n>busyDialogText}");
-/******************************************************************************
-            var aContexts = await oListBinding.requestContexts(0, 0); //* GET *
------------------------------------------------------------------------------*/
-            // Invocazione della action RAP                         // * POST *
-            var oAction = oModel.bindContext("/MailSender/sendMail(...)");
-            oAction.setParameter("DetailPrint", mOptions.DetailPrint);
-            oAction.setParameter("PrintWithDueDate", mOptions.PrintWithDueDate);
-            oAction.setParameter("MailTitle", mOptions.MailTitle);
-            oAction.setParameter("MailBody", mOptions.MailBody);
-            oAction.setParameter("FiltersJson", sFiltersJson);
-            // Esegue la POST
-            await oAction.execute();
-            // Legge il risultato restituito dalla action
-            var oBoundContext = oAction.getBoundContext();
-            var oResultData = await oBoundContext.requestObject();
-            // In base alla forma della risposta OData, i risultati possono
-            // essere esposti direttamente come array oppure nella proprietà value.
-            if (Array.isArray(oResultData)) {
-                aResults = oResultData;
-            } else if (oResultData && Array.isArray(oResultData.value)) {
-                aResults = oResultData.value;
-            } else if (oResultData && Array.isArray(oResultData.results)) {
-                aResults = oResultData.results;
+
+            // Preparazione della richiesta HTTP.
+            var oPayload = {
+                DetailPrint: mOptions.DetailPrint,
+                PrintWithDueDate: mOptions.PrintWithDueDate,
+                MailTitle: mOptions.MailTitle,
+                MailBody: mOptions.MailBody,
+                FiltersJson: sFiltersJson
+            };
+
+            // Invocazione sincrona dal punto di vista funzionale.
+            // Il backend esegue SEND_MAIL e restituisce il log completo.
+            var oResponse = await fetch(MAIL_HTTP_URL, {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(oPayload)
+            });
+
+            var sResponseText = await oResponse.text();
+            var oResponseData;
+
+            // Conversione della risposta JSON.
+            try {
+                oResponseData = JSON.parse(sResponseText);
+            } catch (oParseError) {
+//              throw new Error(MessageLogHelper.i18nText("{i18n>invalidJsonHttpResponse}") + oParseError.message);
+                MessageLogHelper.showMessages([{
+                    type: MessageType.Error,
+                    title: "{i18n>invalidJsonHttpResponse}",
+                    description: oParseError && oParseError.message ? oParseError.message : ""
+                }]);
+                return;
             }
-/*****************************************************************************/
+
+            // Gestione degli errori tecnici HTTP.
+            if (!oResponse.ok) {
+                var sErrorMessage =
+                    oResponseData && oResponseData.error
+                        ? oResponseData.error
+                        : sResponseText;
+//              throw new Error(MessageLogHelper.i18nText("{i19n>errorHttp}") + oResponse.status + ": " + sErrorMessage);
+                MessageLogHelper.showMessages([{
+                    type: MessageType.Error,
+                    title: "{i18n>invalidJsonHttpResponse}" + oResponse.status,
+                    description: oResponse && sErrorMessage ? sErrorMessage : ""
+                }]);
+                return;
+            }
+
+            // Il servizio ABAP restituisce direttamente un array JSON.
+            if (Array.isArray(oResponseData)) {
+                aResults = oResponseData;
+            } else if (oResponseData && Array.isArray(oResponseData.value)) {
+                aResults = oResponseData.value;
+            } else if (oResponseData && Array.isArray(oResponseData.results)) {
+                aResults = oResponseData.results;
+            }
+
+            // Normalizzazione dei nomi dei campi restituiti da ABAP.
+            // La serializzazione ABAP può produrre proprietà maiuscole.
+            aResults = aResults.map(function (oResult) {
+                return {
+                    AgentCode: oResult.AgentCode ?? oResult.AGENTCODE ?? "",
+                    AgentName: oResult.AgentName ?? oResult.AGENTNAME ?? "",
+                    StatusCode: oResult.StatusCode ?? oResult.STATUSCODE ?? "",
+                    LogMessage: oResult.LogMessage ?? oResult.LOGMESSAGE ?? "",
+                    ProcessedObj: oResult.ProcessedObj ?? oResult.PROCESSEDOBJ ?? 0
+                };
+            });
+
         } catch (oError) {
             MessageLogHelper.showMessages([{
                 type: MessageType.Error,
@@ -308,12 +340,11 @@ tWithDueDatesap.ui.define([
                 description: oError && oError.message ? oError.message : ""
             }]);
             return;
+
         } finally {
             MessageLogHelper.hideBusy();
         }
-/******************************************************************************
-        var oContext;                                                // * GET *
-******************************************************************************/
+
         var oResult;
         var error = false;
 		var xType = "";
@@ -323,7 +354,7 @@ tWithDueDatesap.ui.define([
         var xCounter = 0;
         var aModel = [];
 
-        if (!aResults.length) {                              //  (!aContext.length) {
+        if (!aResults.length) {                             
             MessageLogHelper.showMessages([{
                 type: MessageType.Error,
                 title: "{i18n>errorNoDataFound}",
@@ -331,15 +362,10 @@ tWithDueDatesap.ui.define([
             }]);
             return;
         } else {
-            for (var i = 0; i < aResults.length; i++) {     //  for (var i = 0; i < aContext.length; i++) {
+            for (var i = 0; i < aResults.length; i++) {   
                 xType = xTitle = xRefKey = xDescription = "";
                 xCounter = 0;
-/******************************************************************************
-                oContext = aContexts[i];                             // * GET *
-                oResult = oContext.getObject();
------------------------------------------------------------------------------*/
-                oResult = aResults[i];                              // * POST *
-/*****************************************************************************/
+                oResult = aResults[i];                              
                 if (oResult && oResult.StatusCode !== "S") {
                     error = true;
                     xType = MessageType.Error;
@@ -363,7 +389,7 @@ tWithDueDatesap.ui.define([
                     description: xDescription,
                     counter: xCounter
                 });
-            }
+            }                
         }
 
         if (error) {
