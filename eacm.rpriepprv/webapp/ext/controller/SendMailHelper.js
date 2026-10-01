@@ -221,7 +221,7 @@ sap.ui.define([
             var sOperator = oFilter.sOperator;
 
             if (!sPath || !sOperator) {                
-                throw new Error(MessageLogHelper.i18nText("{i18n>unsupportedFilter}"));
+                throw new Error(MessageLogHelper.i18nText("{i18n>errorUnsupportedFilter}"));
             }
 
             var sOption = mOperatorMap[sOperator];
@@ -288,10 +288,10 @@ sap.ui.define([
             try {
                 oResponseData = JSON.parse(sResponseText);
             } catch (oParseError) {
-//              throw new Error(MessageLogHelper.i18nText("{i18n>invalidJsonHttpResponse}") + oParseError.message);
+//              throw new Error(MessageLogHelper.i18nText("{i18n>invalidHttpResponse}") + oParseError.message);
                 MessageLogHelper.showMessages([{
                     type: MessageType.Error,
-                    title: "{i18n>invalidJsonHttpResponse}",
+                    title: "{i18n>invalidHttpResponse}",
                     description: oParseError && oParseError.message ? oParseError.message : ""
                 }]);
                 return;
@@ -306,7 +306,7 @@ sap.ui.define([
 //              throw new Error(MessageLogHelper.i18nText("{i19n>errorHttp}") + oResponse.status + ": " + sErrorMessage);
                 MessageLogHelper.showMessages([{
                     type: MessageType.Error,
-                    title: "{i18n>invalidJsonHttpResponse}" + oResponse.status,
+                    title: "{i18n>errorHttp}" + oResponse.status,
                     description: oResponse && sErrorMessage ? sErrorMessage : ""
                 }]);
                 return;
