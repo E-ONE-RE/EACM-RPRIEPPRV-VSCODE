@@ -15,7 +15,7 @@ sap.ui.define([
 ], function (Button, CheckBox, Dialog, VBox, Label, Input, TextArea, Filter, FilterOperator, JSONModel, coreLibrary, MessageLogHelper) {
     "use strict";
 
-    var MAIL_HTTP_URL = "/sap/bc/http/EACM/RPRIEPPRV_HTTP_HDL?sap-client=100";
+    var MAIL_HTTP_URL = "/sap/bc/http/EACM/RPRIEPPRV_HTTP_HDL?sap-client=100";  // Url del servizio HTTP /EACM/RPRIEPPRV_HTTP_HDL
 
     var MessageType = coreLibrary.MessageType;
 
