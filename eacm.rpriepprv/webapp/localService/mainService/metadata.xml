@@ -334,27 +334,27 @@
             <Annotations Target="SAP__self.CommissionSummaryType/Vkorg">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Sales Organization"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_vkorg}"/>
                 <Annotation Term="SAP__common.Heading" String="SOrg."/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VKORG"/>
             </Annotations>
             <Annotations Target="SAP__self.CommissionSummaryType/Vtweg">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Distribution Channel"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_vtweg}"/>
                 <Annotation Term="SAP__common.Heading" String="DChl"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VTWEG"/>
             </Annotations>
             <Annotations Target="SAP__self.CommissionSummaryType/Zclpr">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Cod.class.comm."/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_zclpr}"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Code classification commissions"/>
             </Annotations>
             <Annotations Target="SAP__self.CommissionSummaryType/Vbeln">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="SD Document"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_vbeln}"/>
                 <Annotation Term="SAP__common.Heading" String="Document"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Sales and Distribution Document Number"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=VBELN"/>
@@ -362,7 +362,7 @@
             <Annotations Target="SAP__self.CommissionSummaryType/Posnr">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsDigitSequence"/>
-                <Annotation Term="SAP__common.Label" String="Item (SD)"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_posnr}"/>
                 <Annotation Term="SAP__common.Heading" String="Item"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Item number of the SD document"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=POSNR"/>
@@ -370,20 +370,20 @@
             <Annotations Target="SAP__self.CommissionSummaryType/Zcdaz">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Agent Code"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_zcdaz}"/>
                 <Annotation Term="SAP__common.Heading" String="Agent"/>
             </Annotations>
             <Annotations Target="SAP__self.CommissionSummaryType/Zidag">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsDigitSequence"/>
-                <Annotation Term="SAP__common.Label" String="Prog.n.agent"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_zidag}"/>
                 <Annotation Term="SAP__common.Heading" String="N.prog.ag."/>
                 <Annotation Term="SAP__common.QuickInfo" String="Progressive number agent"/>
             </Annotations>
             <Annotations Target="SAP__self.CommissionSummaryType/Bukrs">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Company Code"/>
+                <Annotation Term="SAP__common.Label" String="{@i18n>label_bukrs}"/>
                 <Annotation Term="SAP__common.Heading" String="CoCd"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=BUKRS"/>
             </Annotations>

@@ -1,0 +1,201 @@
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="plaintext" original="/EACM/TRANSL_RPRIEPPRV" source-language="en-US" target-language="it-IT">
+    <header>
+      <tool tool-company="SAP SE" tool-id="urn:x-sap:maintain-translations-fiori-app" tool-name="Maintain Translations Fiori App" tool-version="1.0.0"/>
+    </header>
+    <body>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/A_RPRIEPPRV_SND_REQU">
+        <trans-unit id="DATA_DEFINITION:/EACM/A_RPRIEPPRV_SND_REQU:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Send Mail Request</source>
+          <target>RPRIEPPRV Send Mail Request</target>
+          <note>End user text label for entity /EACM/A_RPRIEPPRV_SND_REQU.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/A_RPRIEPPRV_SND_RESP">
+        <trans-unit id="DATA_DEFINITION:/EACM/A_RPRIEPPRV_SND_RESP:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Send Mail Result</source>
+          <target>RPRIEPPRV Send Mail Result</target>
+          <note>End user text label for entity /EACM/A_RPRIEPPRV_SND_RESP.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/R_RPRIEPPRV_PDF">
+        <trans-unit id="DATA_DEFINITION:/EACM/R_RPRIEPPRV_PDF:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV PDF download</source>
+          <target>RPRIEPPRV PDF download</target>
+          <note>End user text label for entity /EACM/R_RPRIEPPRV_PDF.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/R_RPRIEPPRV_MAIL">
+        <trans-unit id="DATA_DEFINITION:/EACM/R_RPRIEPPRV_MAIL:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV PDF mail sender</source>
+		  <target>RPRIEPPRV PDF mail sender</target>
+          <note>End user text label for entity /EACM/R_RPRIEPPRV_MAIL.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Riepilogo provvigioni</source>
+          <target>Riepilogo provvigioni</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RIEPINV">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RIEPINV:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Riepilogo per fattura</source>
+          <target>Riepilogo per fattura</target>
+          <note>End user text label for entity /EACM/C_RIEPINV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_C">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_C:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Currency</source>
+          <target>RPRIEPPRV Form Currency</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_C.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_A">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_A:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Agent</source>
+          <target>RPRIEPPRV Form Agent</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_A.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_U">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_U:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Customer</source>
+          <target>RPRIEPPRV Form Customer</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_U.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_V">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_V:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form General Currency Total</source>
+          <target>RPRIEPPRV Form General Currency Total</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_V.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_I">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_I:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Item</source>
+          <target>RPRIEPPRV Form Item</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_I.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_H">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_H:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Header</source>
+          <target>RPRIEPPRV Form Header</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_H.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_T">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_T:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form Agent Total By Class</source>
+          <target>RPRIEPPRV Form Agent Total By Class</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_T.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/C_RPRIEPPRV_FORM_G">
+        <trans-unit id="DATA_DEFINITION:/EACM/C_RPRIEPPRV_FORM_G:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>RPRIEPPRV Form General Total By Class</source>
+          <target>RPRIEPPRV Form General Total By Class</target>
+          <note>End user text label for entity /EACM/C_RPRIEPPRV_FORM_G.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/I_RPPRDP">
+        <trans-unit id="DATA_DEFINITION:/EACM/I_RPPRDP:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>/EACM/I_RPPRDP - estrazione dati ZPRDP</source>
+          <target>/EACM/I_RPPRDP - estrazione dati ZPRDP</target>
+          <note>End user text label for entity /EACM/I_RPPRDP.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/I_RPRIEPPRV">
+        <trans-unit id="DATA_DEFINITION:/EACM/I_RPRIEPPRV:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>/EACM/I_RPRIEPPRV - Riepilogo Provv.</source>
+          <target>/EACM/I_RPRIEPPRV - Riepilogo Provv.</target>
+          <note>End user text label for entity /EACM/I_RPRIEPPRV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/I_DOC_VH">
+        <trans-unit id="DATA_DEFINITION:/EACM/I_DOC_VH:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Documenti da zprdo</source>
+          <target>Documenti da zprdo</target>
+          <note>End user text label for entity /EACM/I_DOC_VH.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-DATA_DEFINITION" resname="/EACM/I_RIEPINV">
+        <trans-unit id="DATA_DEFINITION:/EACM/I_RIEPINV:ENDUSERTEXT.LABEL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Riepilogo per fattura</source>
+          <target>Riepilogo per fattura</target>
+          <note>End user text label for entity /EACM/I_RIEPINV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-METADATA_EXTENSION" resname="/EACM/MDE_C_RPRIEPPRV">
+        <trans-unit id="METADATA_EXTENSION:/EACM/MDE_C_RPRIEPPRV:UI.HEADERINFO.TYPENAME:ENTITY" maxwidth="40" size-unit="char">
+          <source>Commission list</source>
+          <target>Provvigione</target>
+          <note>UI header information type name of entity /EACM/C_RPRIEPPRV.</note>
+        </trans-unit>
+        <trans-unit id="METADATA_EXTENSION:/EACM/MDE_C_RPRIEPPRV:UI.HEADERINFO.TYPENAMEPLURAL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Commissions list</source>
+          <target>Provvigioni</target>
+          <note>UI header information type name plural of entity /EACM/C_RPRIEPPRV.</note>
+        </trans-unit>
+        <trans-unit id="METADATA_EXTENSION:/EACM/MDE_C_RPRIEPPRV:UI.FACET$1$.LABEL:FIELD:BUKRS" maxwidth="40" size-unit="char">
+          <source>General Information</source>
+          <target>Dati generali</target>
+          <note>UI facet label for field BUKRS of entity /EACM/C_RPRIEPPRV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-METADATA_EXTENSION" resname="/EACM/C_RIEPINV">
+        <trans-unit id="METADATA_EXTENSION:/EACM/C_RIEPINV:UI.HEADERINFO.TYPENAME:ENTITY" maxwidth="40" size-unit="char">
+          <source>Avanzamento provvigioni fattura</source>
+          <target>Avanzamento provvigioni fattura</target>
+          <note>UI header information type name of entity /EACM/C_RIEPINV.</note>
+        </trans-unit>
+        <trans-unit id="METADATA_EXTENSION:/EACM/C_RIEPINV:UI.HEADERINFO.TYPENAMEPLURAL:ENTITY" maxwidth="40" size-unit="char">
+          <source>Avanzamento provvigioni fattura</source>
+          <target>Avanzamento provvigioni fattura</target>
+          <note>UI header information type name plural of entity /EACM/C_RIEPINV.</note>
+        </trans-unit>
+        <trans-unit id="METADATA_EXTENSION:/EACM/C_RIEPINV:UI.FACET$1$.LABEL:FIELD:VBELN" maxwidth="40" size-unit="char">
+          <source>General Information</source>
+          <target>Informazioni generali</target>
+          <note>UI facet label for field VBELN of entity /EACM/C_RIEPINV.</note>
+        </trans-unit>
+      </group>
+      <group datatype="x-LTO_UIAD" resname="/EACM/RPRIEPPRV_UI5R">
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:ALT_SMART_LINK_TITLE:RECORD:SUI_TM_MM_APPT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXV0=" maxwidth="255" size-unit="char">
+          <source>Commission Summary Report</source>
+          <target>Report Riepilogo Provvigioni</target>
+          <note>The field ALT_SMART_LINK_TITLE is used as app title in launchpad app descriptor item</note>
+        </trans-unit>
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:DESCRIPTION:RECORD:SUI_TM_MM_APPT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXV0=" maxwidth="255" size-unit="char">
+          <source>Commission Summary Report</source>
+          <target>Report Riepilogo Provvigioni</target>
+          <note>The field DESCRIPTION is used as description in launchpad app descriptor item</note>
+        </trans-unit>
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:TILE_TITLE:RECORD:SUI_TM_MM_APPATT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXSxbIlRJTEVfSUQiLCIvRUFDTS9SUFJJRVBQUlZfVUk1Ul9BTCJdXQ==" maxwidth="255" size-unit="char">
+          <source>Commission Summary Report</source>
+          <target>Report Riepilogo Provvigioni</target>
+          <note>The field TILE_TITLE is used as tile title in launchpad app descriptor item</note>
+        </trans-unit>
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:TILE_SUBTITLE:RECORD:SUI_TM_MM_APPATT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXSxbIlRJTEVfSUQiLCIvRUFDTS9SUFJJRVBQUlZfVUk1Ul9BTCJdXQ==" maxwidth="255" size-unit="char">
+          <source>Commission Summary</source>
+          <target>Riepilogo Provvigioni</target>
+          <note>The field TILE_SUBTITLE is used as tile subtitle in launchpad app descriptor item</note>
+        </trans-unit>
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:TILE_KEYWORDS:RECORD:SUI_TM_MM_APPATT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXSxbIlRJTEVfSUQiLCIvRUFDTS9SUFJJRVBQUlZfVUk1Ul9BTCJdXQ==" maxwidth="255" size-unit="char">
+          <source/>
+          <target/>
+          <note>The field TILE_KEYWORDS is used as tile keywords in launchpad app descriptor item</note>
+        </trans-unit>
+        <trans-unit id="LTO_UIAD:/EACM/RPRIEPPRV_UI5R:TILE_INFORMATION:RECORD:SUI_TM_MM_APPATT:W1siQVBQX0lEIiwiL0VBQ00vUlBSSUVQUFJWX1VJNVIiXSxbIlRJTEVfSUQiLCIvRUFDTS9SUFJJRVBQUlZfVUk1Ul9BTCJdXQ==" maxwidth="255" size-unit="char">
+          <source/>
+          <target/>
+          <note>The field TILE_INFORMATION is used as tile information in launchpad app descriptor item</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

@@ -354,7 +354,7 @@ sap.ui.define([
         var xCounter = 0;
         var aModel = [];
 
-        if (!aResults.length) {                             
+        if (!aResults.length) {
             MessageLogHelper.showMessages([{
                 type: MessageType.Error,
                 title: "{i18n>errorNoDataFound}",
@@ -362,10 +362,10 @@ sap.ui.define([
             }]);
             return;
         } else {
-            for (var i = 0; i < aResults.length; i++) {   
+            for (var i = 0; i < aResults.length; i++) {
                 xType = xTitle = xRefKey = xDescription = "";
                 xCounter = 0;
-                oResult = aResults[i];                              
+                oResult = aResults[i];
                 if (oResult && oResult.StatusCode !== "S") {
                     error = true;
                     xType = MessageType.Error;
@@ -389,7 +389,7 @@ sap.ui.define([
                     description: xDescription,
                     counter: xCounter
                 });
-            }                
+            }
         }
 
         if (error) {
